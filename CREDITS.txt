@@ -4,13 +4,15 @@ CREDITS
 Development
 -----------
 
-* Martijn Faassen (creator & lead developer)
+* Martijn Faassen (creator)
 
 * Denis Krienbühl
 
 * Stefano Taschini
 
 * Henri Hulski
+
+* CONTACT Software
 
 With contributions by
 ---------------------

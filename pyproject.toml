@@ -1,0 +1,119 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-system = ["setuptools.build_meta"]
+
+[project]
+name = "morepath"
+dynamic = ["version", "readme"]
+description = "A micro web-framework with superpowers"
+license = "BSD-3-Clause"
+license-files = ["LICENSE.txt"]
+authors = [
+    {name = "Morepath developers", email = "morepath@googlegroups.com"},
+    {name = "CONTACT Software GmbH"},
+]
+maintainers = [
+    {name = "CONTACT Software GmbH"},
+]
+keywords = ["web", "wsgi", "routing", "morepath"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Environment :: Web Environment",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Internet :: WWW/HTTP :: WSGI",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 5 - Production/Stable",
+]
+requires-python = ">= 3.10"
+dependencies = [
+    "webob >= 1.7.0",
+    "reg >= 0.12",
+    "dectate >= 0.14",
+    "importscan >= 0.2"
+]
+
+[project.urls]
+Documentation = "https://morepath.readthedocs.io"
+Repository = "https://github.com/cslab/morepath"
+Issues = "https://github.com/cslab/morepath/issues"
+Changelog = "https://github.com/cslab/morepath/blob/master/CHANGES.txt"
+
+[project.optional-dependencies]
+test = [
+    "pytest >= 7",
+    "WebTest >= 2.0.14",
+]
+docs = ["sphinx", "pyyaml", "WebTest >= 2.0.14"]
+coverage = ["pytest-cov"]
+
+[tool.setuptools]
+packages = ["morepath"]
+
+[tool.setuptools-scm]
+# No config here.
+# Section is required to enable setuptools-scm.
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst", "CHANGES.txt"]}
+
+[tool.coverage.run]
+omit = ["morepath/tests/*"]
+source = ["morepath"]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.tox]
+requires = ["tox>=4"]
+env_list = [
+    "py310",
+    "py311",
+    "py312",
+    "py313",
+    "py314",
+    "pypy3",
+    "docs",
+    "coverage",
+]
+skip_missing_interpreters = true
+package_env = ".pkg"
+
+[tool.tox.env_run_base]
+package = "editable"
+wheel_build_env = ".pkg"
+extras = ["test"]
+deps = ["-r{toxinidir}/requirements/fixtures.txt"]
+commands = [
+    ["pytest", "{posargs:morepath}"],
+]
+
+[tool.tox.env.pre-commit]
+package = "skip"
+deps = ["pre-commit"]
+commands = [
+    ["pre-commit", "run", "--all-files"],
+]
+
+[tool.tox.env.coverage]
+extras = ["test", "coverage"]
+commands = [
+    ["pytest", "--cov", "--cov-fail-under=100", "{posargs:morepath}"],
+]
+
+[tool.tox.env.docs]
+extras = ["docs"]
+commands = [
+    ["sphinx-build", "-b", "doctest", "doc", "{env_tmp_dir}"],
+]
+
+[tool.tox.env.gh-actions.python]
+"3.10" = ["pre-commit", "coverage", "docs"]
+"3.12" = ["py312"]
+"3.13" = ["py313"]
+"3.14" = ["py314"]

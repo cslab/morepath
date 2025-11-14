@@ -11,6 +11,8 @@ pip-wheel-metadata
 # Virtualenv
 /env/
 /src/
+/venv/
+/.venv/
 
 # Unit test / coverage reports
 .cache/
@@ -21,3 +23,6 @@ pip-wheel-metadata
 
 # Sphinx documentation
 /doc/build/
+
+# PyCharm IDE
+/.idea/

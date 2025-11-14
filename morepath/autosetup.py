@@ -213,14 +213,12 @@ def get_module_name(distribution):
     See :func:`morepath.autoscan` for details and an example.
     """
     if hasattr(distribution, "entry_points"):
-        entry_points = distribution.entry_points.select(
-            group="morepath", name="scan"
-        )
+        entry_points = distribution.entry_points.select(group="morepath")
     else:
         entry_points = None
 
-    if entry_points:
-        return entry_points[0].module
+    if entry_points is not None and "scan" in entry_points.names:
+        return entry_points["scan"].module
     # use normal setuptools project name.
     # setuptools has the nasty habit to turn _ in package names
     # into -. We turn them back again.

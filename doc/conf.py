@@ -38,12 +38,15 @@ autodoc_member_order = "groupwise"
 
 # See also: http://stackoverflow.com/a/30981554
 intersphinx_mapping = {
-    "reg": ("http://reg.readthedocs.io/en/latest", None),
-    "importscan": ("http://importscan.readthedocs.io/en/latest", None),
-    "dectate": ("http://dectate.readthedocs.io/en/latest", None),
+    "reg": ("https://reg.readthedocs.io/en/latest", None),
+    "importscan": ("https://importscan.readthedocs.io/en/latest", None),
+    "dectate": ("https://dectate.readthedocs.io/en/latest", None),
     "webob": ("http://docs.webob.org/en/latest", None),
-    "bowerstatic": ("http://bowerstatic.readthedocs.io/en/latest", None),
-    "webtest": ("http://webtest.readthedocs.io/en/latest", None),
+    "bowerstatic": ("https://bowerstatic.readthedocs.io/en/latest", None),
+    "webtest": (
+        "https://docs.pylonsproject.org/projects/webtest/en/latest/objects.inv",
+        None,
+    ),
 }
 
 # Add any paths that contain templates here, relative to this directory.

@@ -1,4 +1,5 @@
 # fixture packages
+-e .
 -e ./fixture_packages/base
 -e ./fixture_packages/sub
 -e ./fixture_packages/no_mp

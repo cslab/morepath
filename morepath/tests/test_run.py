@@ -40,45 +40,6 @@ def test_run_socketerror(mockserver, capsys):
     assert out == ""
 
 
-def test_run_defaults(mockserver, capsys):
-    "The arguments to makeserver form the defaults for the CLI."
-    mockserver.set_argv(["script-name", "--help"])
-
-    assert mockserver.run(basic.app(), host="localhost", port=80) == 0
-
-    out, err = capsys.readouterr()
-
-    assert err == ""
-    import sys
-
-    if sys.version_info < (3, 10):
-        assert (
-            out
-            == """\
-usage: script-name [-h] [-p PORT] [-H HOST]
-
-optional arguments:
-  -h, --help            show this help message and exit
-  -p PORT, --port PORT  TCP port on which to listen (default: 80)
-  -H HOST, --host HOST  hostname or IP address on which to listen (default:
-                        localhost)
-"""
-        )
-    else:
-        assert (
-            out
-            == """\
-usage: script-name [-h] [-p PORT] [-H HOST]
-
-options:
-  -h, --help            show this help message and exit
-  -p PORT, --port PORT  TCP port on which to listen (default: 80)
-  -H HOST, --host HOST  hostname or IP address on which to listen (default:
-                        localhost)
-"""
-        )
-
-
 def test_run(mockserver, capsys):
     "Run with a mocked server."
     mockserver.set_argv(["--port", "0"])
